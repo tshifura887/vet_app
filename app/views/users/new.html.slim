@@ -1,1 +1,24 @@
-h1 Signup
+div
+    h1 Signup
+
+div 
+    = form_with url: '/signup', method: :post do |form|
+        div
+            = form.label :name
+            br
+            = form.text_field :name
+        div 
+            = form.label :email
+            br
+            = form.email_field :email
+        div 
+            = form.label :password
+            br
+            = form.password_field :password
+        div 
+            = form.label :role
+            br
+            = form.select :role, options_for_select(['vet', 'owner'])
+        div 
+           br
+           = form.submit 'submit'

@@ -1,7 +1,6 @@
 class VetsApi 
-    include HTTParty
-    def initialize(token, params)
-        @headers = {'Authorization': token}
+    def initialize(auth_token= '', params: {})
+        @headers = {'Authorization': auth_token}
         @params = params
         @api_url = 'http://localhost:3000'
     end

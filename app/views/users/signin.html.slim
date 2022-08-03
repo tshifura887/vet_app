@@ -1,0 +1,16 @@
+div
+    h1 Signin
+
+div 
+    = form_with url: '/signin', method: :post do |form|
+        div 
+            = form.label :email
+            br
+            = form.email_field :email
+        div 
+            = form.label :password
+            br
+            = form.password_field :password
+        div 
+           br
+           = form.submit 'submit'

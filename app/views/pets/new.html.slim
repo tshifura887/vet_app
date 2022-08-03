@@ -1,0 +1,24 @@
+div
+    h1 New Pet
+
+div 
+    = form_with url: '/pets', method: :post do |form|
+        div
+            = form.label :name 
+            br
+            = form.text_field :name
+        div
+            = form.label :pet_type 
+            br
+            = form.text_field :pet_type
+        div
+            = form.label :pet_breed
+            br
+            = form.text_field :pet_breed
+        div
+            = form.label :age
+            br
+            = form.number_field :age
+        div 
+            br
+            = form.submit 
