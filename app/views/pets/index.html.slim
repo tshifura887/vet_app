@@ -1,9 +1,11 @@
-
-
-- @pets.each do |pet|
-   = pet.name
-   = pet.pet_type 
-   = pet.pet_breed
+h1 Pets
+ul
+    - @pets.each do |pet|
+        li 
+            = link_to pet['name'], pet_path(id: pet['id'])
 
 br
 = link_to 'New Pet', new_pet_path
+br
+br
+= link_to 'Back', root_path

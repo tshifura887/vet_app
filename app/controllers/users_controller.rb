@@ -4,16 +4,21 @@ class UsersController < ApplicationController
     response = VetsApi::User.new(params: user_params).create_user
 
     if response.created?
-      success(response)
-      redirect_to root_path
+      set_cookie(response)
+      redirect_to pets_path
     else   
-      flash.now[:alert] = 'Couldnt create user'
+      render :new
     end
   end
 
   def authenticate 
     response = VetsApi::User.new(params: user_params).authenticate
-    redirect_to pets_path
+    if response.success?
+      set_cookie(response)
+      redirect_to pets_path
+    else
+      render :signin
+    end
   end
 
   private
@@ -28,8 +33,7 @@ class UsersController < ApplicationController
       )
   end
 
-  def success(response) 
-    user = response.parsed_response
-    cookies[:auth_token] = user['auth_token']
+  def set_cookie(response) 
+    cookies[:auth_token] = response['auth_token']
   end
 end

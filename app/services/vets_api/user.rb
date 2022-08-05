@@ -1,13 +1,10 @@
 class VetsApi::User < VetsApi
     def create_user 
-        response = HTTParty.post("#{@api_url}/signup", body: @params)
+        response = HTTParty.post("http://127.0.0.1:3000/signup", body: @params)
     end
 
     def authenticate 
-        response = HTTParty.post("#{@api_url}/auth/login", body: @params)
+        response = HTTParty.post("http://127.0.0.1:3000/auth/login", body: @params)
     end
 
-    def get_user 
-        response = HTTParty.get("#{@api_url}/user/:id", headers: @headers)
-    end
 end
