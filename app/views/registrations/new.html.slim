@@ -1,0 +1,12 @@
+h1 Register Pet
+
+div 
+    = form_with url: "/pets/#{params['pet_id']}/registrations", method: :post do |form|
+        div
+            = form.label :vet_name 
+            br
+            = form.text_field :vet_name
+        div 
+            br
+            = form.submit 'Register'
+= link_to 'Back', pet_path(params['pet_id'])

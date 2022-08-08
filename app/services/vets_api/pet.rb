@@ -11,7 +11,11 @@ class VetsApi::Pet < VetsApi
         response = HTTParty.get("http://127.0.0.1:3000/pets/#{@params[:id]}", headers: @headers)
     end
 
-    def get_user 
-        response = HTTParty.get("http://127.0.0.1:3000/user/:id", headers: @headers)
+    def delete_pet
+        response = HTTParty.delete("http://127.0.0.1:3000/pets/#{@params[:id]}", headers: @headers)
+    end
+
+    def get_registrations(pet_id)
+        response = HTTParty.get("http://127.0.0.1:3000/registrations/#{pet_id}", headers: @headers)
     end
 end

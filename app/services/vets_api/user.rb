@@ -7,4 +7,7 @@ class VetsApi::User < VetsApi
         response = HTTParty.post("http://127.0.0.1:3000/auth/login", body: @params)
     end
 
+    def get_user
+        response = HTTParty.get("http://127.0.0.1:3000/users/#{@params[:id]}", headers: @headers)
+    end
 end

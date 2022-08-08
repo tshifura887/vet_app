@@ -5,6 +5,7 @@ ul
             = link_to pet['name'], pet_path(id: pet['id'])
 
 br
+/ - if @user['role'] == 'owner'
 = link_to 'New Pet', new_pet_path
 br
 br

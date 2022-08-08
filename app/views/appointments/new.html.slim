@@ -1,0 +1,11 @@
+br
+div 
+    = form_with url: "/pets/#{params['pet_id']}/registrations/#{params['registration_id']}/appointments", method: :post do |form|
+        div
+            = form.label :appointment_date 
+            br
+            = form.date_field :appointment_date
+        div 
+            br
+            = form.submit 'Submit'
+= link_to 'Back' , pet_registration_appointments_path

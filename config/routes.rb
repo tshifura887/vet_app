@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   root 'home#index'
   
   resources :pets do
-    resources :registrations, only: [:create, :update] do
-      resources :appointments, only: [:create]
+    resources :registrations do
+      resources :appointments, only: [:create, :index, :new]
     end
   end
   get '/signup', to: 'users#new'
@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   get '/signin', to: 'users#signin'
   post '/signin', to: 'users#authenticate'
 
+  get '/users/:id/pets', to: 'pets#index'
 end

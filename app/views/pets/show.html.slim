@@ -4,7 +4,30 @@ p Pet Type:  #{ @pet['pet_type']}
 p Pet Breed:  #{ @pet['pet_breed']}
 p Age:  #{ @pet['age']}
 
+h2 Registrations 
+table
+    thead 
+        tr
+            th Registered
+            th Accepted
+    tbody 
+        - @registrations.each do |registration|
+            tr
+                td 
+                    = registration['registered']
+                td
+                    = registration['accepted']
+                td 
+                    = link_to 'Appointments',  pet_registration_appointments_path(registration_id: registration['id'], pet_id: registration['pet_id'])
+       
 br
+= link_to 'Register Pet', new_pet_registration_path(pet_id: @pet['id'])
+br
+/ = link_to 'Accept Registration', pet_registration_path(pet_id: @pet['id'], id: @pet['id']), method: :put
+br
+= link_to 'Delete', pet_path(id: @pet['id']),
+                  method: :delete,
+                  data: { confirm: "Are you sure?" } 
 br
 = link_to 'back', pets_path
 
