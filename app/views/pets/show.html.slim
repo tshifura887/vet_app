@@ -8,22 +8,38 @@ h2 Registrations
 table
     thead 
         tr
+            - if @user['role'] == 'owner'
+                th Vet Name
+            - if @user['role'] == 'vet'
+                th Pet Owner Name
             th Registered
             th Accepted
     tbody 
         - @registrations.each do |registration|
             tr
+                - if @user['role'] == 'owner'
+                    td
+                        = 
+                - if @user['role'] == 'vet'       
+                    td 
+                        =
                 td 
                     = registration['registered']
                 td
                     = registration['accepted']
+                - if @user['role'] == 'vet'
+                    td 
+                        = link_to 'Accept Registration', pet_registration_path(pet_id: registration['pet_id'], id: registration['id']), method: :put
+                - if @user['role'] == 'owner'
+                    td 
+                        = link_to 'Delete Registration', pet_registration_path(pet_id: registration['pet_id'], id: registration['id']), method: :delete
                 td 
                     = link_to 'Appointments',  pet_registration_appointments_path(registration_id: registration['id'], pet_id: registration['pet_id'])
        
 br
-= link_to 'Register Pet', new_pet_registration_path(pet_id: @pet['id'])
-br
-/ = link_to 'Accept Registration', pet_registration_path(pet_id: @pet['id'], id: @pet['id']), method: :put
+- if @user['role'] == 'owner'
+    = link_to 'Register Pet', new_pet_registration_path(pet_id: @pet['id'])
+
 br
 = link_to 'Delete', pet_path(id: @pet['id']),
                   method: :delete,

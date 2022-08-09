@@ -18,6 +18,10 @@ class RegistrationsController < ApplicationController
         redirect_to pet_path(id: params['pet_id'])
     end
 
+    def destroy
+        @registration = VetsApi::Registration.new(cookies[:auth_token], params: params).delete_registration
+        redirect_to pet_path(id: params['pet_id'])
+    end
     private 
 
     def registration_params

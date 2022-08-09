@@ -13,5 +13,4 @@ Rails.application.routes.draw do
   get '/signin', to: 'users#signin'
   post '/signin', to: 'users#authenticate'
 
-  get '/users/:id/pets', to: 'pets#index'
 end

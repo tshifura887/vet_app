@@ -35,7 +35,7 @@ class PetsController < ApplicationController
     end
 
     def set_user 
-        response = VetsApi::User.new(cookies[:auth_token], params: params).get_user
+        response = VetsApi::User.new(cookies[:auth_token]).get_user
         @user = response.parsed_response
     end
 

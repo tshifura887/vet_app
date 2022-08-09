@@ -6,4 +6,9 @@ class VetsApi::Registration < VetsApi
     def accept_registration
         response = HTTParty.put("http://127.0.0.1:3000/pets/#{@params[:pet_id]}/registrations/#{@params[:id]}", headers: @headers)
     end
+
+    def delete_registration
+        response = HTTParty.delete("http://127.0.0.1:3000/pets/#{@params[:pet_id]}/registrations/#{@params[:id]}", headers: @headers)
+    end
+
 end

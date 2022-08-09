@@ -1,4 +1,9 @@
 br 
+ul
+    - @appointments.each do |appointment|
+        li
+            = appointment['appointment_date']
 
-= link_to 'New Appointment', new_pet_registration_appointment_path
+- if @user['role'] == 'owner'
+    = link_to 'New Appointment', new_pet_registration_appointment_path
 br 
