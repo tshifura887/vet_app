@@ -8,10 +8,10 @@ class PetsController < ApplicationController
 
     def create
         response = VetsApi::Pet.new(cookies[:auth_token], params: pet_params).create_pet
-        @pet = response.parsed_response
-        if @pet
+        if response.created? 
+            @pet = response.parsed_response
             redirect_to pet_path(@pet['id'])
-        else 
+        else   
             render :new
         end
     end

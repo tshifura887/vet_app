@@ -8,11 +8,7 @@ class AppointmentsController < ApplicationController
     def create 
         response = VetsApi::Appointment.new(cookies[:auth_token], params: appointment_params).create_appointment
         @appointment = response.parsed_response
-        if @appointment
-            redirect_to pet_registration_appointments_path
-        else  
-            render :new 
-        end
+        redirect_to pet_registrations_path
     end
 
     private 

@@ -1,0 +1,29 @@
+h1 Registration Details
+
+p Registered to a Vet: #{@registration['registered']}
+p Vet has Accepted registration: #{@registration['accepted']}
+
+h2 Appointments
+ul
+    - @appointments.each do |appointment|
+        li
+            = appointment['appointment_date']
+
+h2 Add an appointment
+- if @user['role'] == 'owner'
+    = form_with url: "/pets/#{params['pet_id']}/registrations/#{params['registration_id']}/appointments", method: :post do |form|
+        div
+            = form.label :appointment_date 
+            br
+            = form.date_field :appointment_date
+        div 
+            br
+            = form.submit 'Submit'
+br 
+
+- if @user['role'] == 'vet'    
+    = link_to 'Accept Registration', pet_registration_path(pet_id: @registration['pet_id'], id: @registration['id']), method: :put
+- if @user['role'] == 'owner'
+    = link_to 'Delete Registration', pet_registration_path(pet_id: @registration['pet_id'], id: @registration['id']), method: :delete
+br 
+= link_to 'Back', pet_path

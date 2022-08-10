@@ -2,8 +2,7 @@ h1 Pets
 ul
     - @pets.each do |pet|
         li 
-            = link_to pet['name'], pet_path(id: pet['id'])
-
+            = link_to pet['name'], pet_path(id: pet['id']) 
 br
 - if @user['role'] == 'owner'
     = link_to 'New Pet', new_pet_path
