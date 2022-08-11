@@ -1,29 +1,39 @@
 h1 Registration Details
 
-p Registered to a Vet: #{@registration['registered']}
-p Vet has Accepted registration: #{@registration['accepted']}
+- if @user['role'] == 'owner'
+    h3  Vet Name: #{@registration['vet']}
+
+- if @user['role'] == 'owner'
+    - if @registration['accepted'] == true
+        div class="text-success"
+            p #{@registration['vet']} has accepted registration! 
+    - else 
+        div class="text-danger"
+           p #{@registration['vet']} has not yet accepted registration! 
+- else
+    - if @registration['accepted'] == false
+        div class="text-danger"
+            p You have not yet accepted registration request!
+
+- if @registration['registration_date'] != nil
+    p Registration Date:  #{@registration['registration_date'].to_date}
 
 h2 Appointments
+
 ul
     - @appointments.each do |appointment|
         li
-            = appointment['appointment_date']
+            = appointment['appointment_date'].to_time
 
-h2 Add an appointment
 - if @user['role'] == 'owner'
-    = form_with url: "/pets/#{params['pet_id']}/registrations/#{params['registration_id']}/appointments", method: :post do |form|
-        div
-            = form.label :appointment_date 
-            br
-            = form.date_field :appointment_date
-        div 
-            br
-            = form.submit 'Submit'
-br 
+    - if @registration['accepted'] == true
+        = link_to 'New Appointment', new_pet_registration_appointment_path(registration_id: @registration['id']), class:"btn btn-dark btn-sm" 
+'
+- if @user['role'] == 'vet' 
+    - if @registration['accepted'] == false 
+        = link_to 'Approve Registration', pet_registration_path(pet_id: @registration['pet_id'], id: @registration['id']), method: :put, class:"btn btn-success btn-sm"
 
-- if @user['role'] == 'vet'    
-    = link_to 'Accept Registration', pet_registration_path(pet_id: @registration['pet_id'], id: @registration['id']), method: :put
 - if @user['role'] == 'owner'
-    = link_to 'Delete Registration', pet_registration_path(pet_id: @registration['pet_id'], id: @registration['id']), method: :delete
-br 
-= link_to 'Back', pet_path
+    = link_to 'Delete Registration', pet_registration_path(pet_id: @registration['pet_id'], id: @registration['id']), method: :delete, class:"btn btn-danger btn-sm"
+'
+= link_to 'Back', pet_path(id: @registration['pet_id']), class:"btn btn-dark btn-sm"

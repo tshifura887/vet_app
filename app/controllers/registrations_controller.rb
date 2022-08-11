@@ -23,8 +23,9 @@ class RegistrationsController < ApplicationController
     end
 
     def update 
-        @registration = VetsApi::Registration.new(cookies[:auth_token], params: params).accept_registration
-        redirect_to pet_path(id: params['pet_id'])
+        response = VetsApi::Registration.new(cookies[:auth_token], params: params).accept_registration
+        @registration = response.parsed_response
+        redirect_to pet_registration_path
     end
 
     def destroy

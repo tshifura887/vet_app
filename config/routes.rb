@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  root 'home#index'
+  root 'users#signin'
   
   resources :pets do
     resources :registrations do
@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   get '/signin', to: 'users#signin'
   post '/signin', to: 'users#authenticate'
 
+  delete '/logout', to: 'users#logout'
 end

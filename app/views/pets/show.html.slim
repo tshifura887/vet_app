@@ -4,32 +4,52 @@ p Pet Type:  #{ @pet['pet_type']}
 p Pet Breed:  #{ @pet['pet_breed']}
 p Age:  #{ @pet['age']}
 
-h2 Vet Registrations 
+- if @registrations.length > 1
+    h2 Vet Registrations 
 
-table
-    thead 
-        tr
-            th Registered
-            th Accepted
-    tbody 
-        - @registrations.each do |registration|
-            - if registration['registered'] == true
-                tr
-                    td 
-                        = registration['registered']
-                    td
-                        = registration['accepted']
-                    td 
-                        = link_to 'Registration Details', pet_registration_path(pet_id: registration['pet_id'])
-       
-br
+- if @registrations.length > 1
+    table class="table table-striped table-hover table-dark" style="width: 30rem;"
+        thead 
+            tr
+                - if @user['role'] == 'owner'
+                    th Vet Name
+                th Registration Approval Date
+                th
+        tbody 
+            - @registrations.each do |registration|
+                - if  registration['registered'] != nil && registration['vet'] == @user['name']
+                    tr
+                        - if @user['role'] == 'owner'
+                            td 
+                                = registration['vet']
+                        - if registration['accepted'] == true
+                            td 
+                                = registration['registration_date'].to_date
+                        - else 
+                            td
+                        td 
+                            = link_to 'Registration Details', pet_registration_path(id: registration['id'], pet_id: registration['pet_id']), class:"btn btn-light btn-sm"
+                - elsif registration['registered'] != nil
+                    tr
+                        - if @user['role'] == 'owner'
+                            td 
+                                = registration['vet']
+                        - if registration['accepted'] == true
+                            td 
+                                = registration['registration_date'].to_date
+                        - else 
+                            td
+                        td 
+                            = link_to 'Registration Details', pet_registration_path(id: registration['id'], pet_id: registration['pet_id']), class:"btn btn-light btn-sm"
+                       
+
 - if @user['role'] == 'owner'
-    = link_to 'Register Pet', new_pet_registration_path(pet_id: @pet['id'])
-
-br
-= link_to 'Delete', pet_path(id: @pet['id']),
+    = link_to 'Register Pet', new_pet_registration_path(pet_id: @pet['id']), class:"btn btn-dark btn-sm"
+'
+- if @user['role'] == 'owner'
+    = link_to 'Delete Pet', pet_path(id: @pet['id']),
                   method: :delete,
-                  data: { confirm: "Are you sure?" } 
-br
-= link_to 'back', pets_path
+                  data: { confirm: "Are you sure?" }, class:"btn btn-danger btn-sm"
+'
+= link_to 'back', pets_path, class:"btn btn-dark btn-sm"
 

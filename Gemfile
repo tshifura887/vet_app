@@ -35,6 +35,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry-rails'
 end
+gem 'bootstrap', '~> 5.2.0'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.

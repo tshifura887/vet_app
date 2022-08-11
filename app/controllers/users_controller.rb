@@ -21,6 +21,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def logout
+    response = VetsApi::User.new(cookies[:auth_token],params: params).get_user
+    cookies[:auth_token] = response['auth_token']
+    cookies.delete :auth_token
+    redirect_to root_path
+  end
 
   private
   def user_params

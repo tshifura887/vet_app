@@ -1,24 +1,24 @@
-div
-    h1 Signup
-
-div 
-    = form_with url: '/signup', method: :post do |form|
-        div
-            = form.label :name
-            br
-            = form.text_field :name
-        div 
-            = form.label :email
-            br
-            = form.email_field :email
-        div 
-            = form.label :password
-            br
-            = form.password_field :password
-        div 
-            = form.label :role
-            br
-            = form.select :role, options_for_select(['vet', 'owner'])
-        div 
-           br
-           = form.submit 'submit'
+div class="col d-flex justify-content-center"
+    div class="card text-white bg-dark mb-3" style="width:30rem; height:30rem;"
+        div class="card-header"
+            h1 Sign Up
+        div class="card-body" 
+            = form_with url: '/signup', method: :post do |form|
+                div class="field form-group"
+                    br
+                    = form.text_field :name, autofocus: true, class:'form-control', placeholder: "Name", autocomplete: "name"
+                div class="field form-group"
+                    br
+                    = form.email_field :email, autofocus: true, class:'form-control', placeholder: "Email", autocomplete: "email" 
+                div class="field form-group"
+                    br
+                    = form.password_field :password, autofocus: true, class:'form-control', placeholder: "Password", autocomplete: "password" 
+                div class="field form-group"
+                    = form.label :role
+                    br
+                    = form.select :role, options_for_select(['vet', 'owner'])
+                div class="field form-group"
+                    br
+                    = form.submit 'Signup', class:"btn btn-secondary"
+                div 
+                    = link_to 'Back', signin_path
