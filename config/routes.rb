@@ -3,9 +3,8 @@ Rails.application.routes.draw do
   root 'users#signin'
   
   resources :pets do
-    resources :registrations do
-      resources :appointments, only: [:create, :index, :new]
-    end
+    resources :registrations
+    resources :appointments, only: [:create, :index, :new]
   end
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'

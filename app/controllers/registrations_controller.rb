@@ -3,8 +3,6 @@ class RegistrationsController < ApplicationController
     def show 
         response = VetsApi::Registration.new(cookies[:auth_token], params: params).get_registration_details
         @registration = response.parsed_response
-        appointments = VetsApi::Registration.new(cookies[:auth_token], params: params).get_appointments(@registration['id'])
-        @appointments = appointments.parsed_response
     end
 
     def new 

@@ -3,7 +3,7 @@ div  class="col d-flex justify-content-center"
         div class="card-header"
             h2 Make an Appointment
         div class="card-body"
-            = form_with url: "/pets/#{params['pet_id']}/registrations/#{params['registration_id']}/appointments", method: :post do |form|
+            = form_with url: "/pets/#{params['pet_id']}/appointments", method: :post do |form|
                 div
                     = form.label :appointment_date 
                     br
@@ -12,4 +12,5 @@ div  class="col d-flex justify-content-center"
                     br
                     = form.submit 'Submit', class:"btn btn-secondary"
                 div
-                    = link_to 'Back' , pet_registration_path(id: params['registration_id'], pet_id: params['pet_id'])
+                    = link_to 'Back' , pet_path(id: params['pet_id'])
+                

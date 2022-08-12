@@ -17,17 +17,6 @@ h1 Registration Details
 
 - if @registration['registration_date'] != nil
     p Registration Date:  #{@registration['registration_date'].to_date}
-
-h2 Appointments
-
-ul
-    - @appointments.each do |appointment|
-        li
-            = appointment['appointment_date'].to_time
-
-- if @user['role'] == 'owner'
-    - if @registration['accepted'] == true
-        = link_to 'New Appointment', new_pet_registration_appointment_path(registration_id: @registration['id']), class:"btn btn-dark btn-sm" 
 '
 - if @user['role'] == 'vet' 
     - if @registration['accepted'] == false 

@@ -1,15 +1,14 @@
 class AppointmentsController < ApplicationController
     before_action :set_user
-    def index 
-        response = VetsApi::Appointment.new(cookies[:auth_token], params: params).get_appointments
-        @appointments = response.parsed_response
-    end
-
+    # def index 
+    #     response = VetsApi::Appointment.new(cookies[:auth_token], params: params).get_appointments
+    #     @appointments = response.parsed_response
+    # end
     def create 
         response = VetsApi::Appointment.new(cookies[:auth_token], params: appointment_params).create_appointment
         if response.created?
             @appointment = response.parsed_response
-            redirect_to pet_registration_path(id: @appointment['registration_id'])
+            redirect_to pet_path(id: @appointment['pet_id'])
         else  
             render :new 
         end
@@ -17,7 +16,7 @@ class AppointmentsController < ApplicationController
 
     private 
     def appointment_params 
-        params.permit(:appointment_date, :authenticity_token, :commit, :pet_id, :registration_id)
+        params.permit(:appointment_date, :authenticity_token, :commit, :pet_id)
     end
 
     def set_user 
