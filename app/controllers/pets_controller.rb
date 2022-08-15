@@ -19,12 +19,6 @@ class PetsController < ApplicationController
     def show
         response = VetsApi::Pet.new(cookies[:auth_token], params: params).show_pet
         @pet = response.parsed_response
-
-        registrations = VetsApi::Pet.new(cookies[:auth_token], params: params).get_registrations(@pet['id'])
-        @registrations = registrations.parsed_response
-
-        appointments = VetsApi::Appointment.new(cookies[:auth_token], params: params).get_appointments(@pet['id'])
-        @appointments = appointments.parsed_response
     end
 
     def destroy 
